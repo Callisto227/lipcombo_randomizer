@@ -66,8 +66,25 @@ nav button.on{background:linear-gradient(110deg,#ff3d8b,#8b3dff);opacity:1;box-s
 <header><h1>💋 LipCombo</h1><button class="chip" id="st">⚙︎ Синхр.</button></header>
 <main>
 <section class="tab on" id="t0"><div class="glass">
-<svg class="lips" id="lips" viewBox="0 0 200 110"><path id="lf" d="M10 55 Q40 8 78 28 Q100 14 122 28 Q160 8 190 55 Q150 104 100 104 Q50 104 10 55Z" fill="#ff5c9a" stroke="#fff" stroke-width="7" stroke-linejoin="round" style="transition:.4s"/>
-<path d="M14 55 Q100 72 186 55" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="3"/><ellipse cx="70" cy="40" rx="18" ry="6" fill="rgba(255,255,255,.35)"/></svg>
+<svg class="lips" id="lips" viewBox="0 0 240 140">
+<defs>
+<linearGradient id="gu" x1="0" y1="0" x2="0" y2="1"><stop id="u1" offset="0" stop-color="#b83a64"/><stop id="u2" offset="1" stop-color="#e0527f"/></linearGradient>
+<linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop id="l1" offset="0" stop-color="#ff7aa6"/><stop id="l2" offset=".55" stop-color="#ff5c9a"/><stop id="l3" offset="1" stop-color="#cf3f77"/></linearGradient>
+<filter id="b4" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="4"/></filter>
+<filter id="b1" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur stdDeviation=".7"/></filter>
+<filter id="b3" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="3"/></filter>
+<clipPath id="cp"><path d="M20 70C45 52 70 36 100 34C108 34 114 40 120 44C126 40 132 34 140 34C170 36 195 52 220 70C190 72 150 76 120 76C90 76 50 72 20 70Z"/><path d="M20 70C50 72 90 76 120 76C150 76 190 72 220 70C205 100 170 118 120 120C70 118 35 100 20 70Z"/></clipPath>
+</defs>
+<path d="M20 70C45 52 70 36 100 34C108 34 114 40 120 44C126 40 132 34 140 34C170 36 195 52 220 70C190 72 150 76 120 76C90 76 50 72 20 70Z" fill="url(#gu)"/><path d="M20 70C50 72 90 76 120 76C150 76 190 72 220 70C205 100 170 118 120 120C70 118 35 100 20 70Z" fill="url(#gl)"/>
+<g clip-path="url(#cp)">
+<path class="pc" d="M20 70C45 52 70 36 100 34C108 34 114 40 120 44C126 40 132 34 140 34C170 36 195 52 220 70C205 100 170 118 120 120C70 118 35 100 20 70Z" fill="none" stroke="#d6527e" stroke-width="13" filter="url(#b4)" opacity=".85"/>
+<ellipse cx="120" cy="97" rx="30" ry="8" fill="#fff" opacity=".35" filter="url(#b3)"/>
+<ellipse cx="82" cy="52" rx="16" ry="4" fill="#fff" opacity=".22" transform="rotate(-22 82 52)" filter="url(#b3)"/>
+<ellipse cx="160" cy="52" rx="16" ry="4" fill="#fff" opacity=".15" transform="rotate(22 160 52)" filter="url(#b3)"/>
+</g>
+<path class="pc" d="M20 70C45 52 70 36 100 34C108 34 114 40 120 44C126 40 132 34 140 34C170 36 195 52 220 70C205 100 170 118 120 120C70 118 35 100 20 70Z" fill="none" stroke="#d6527e" stroke-width="2.2" stroke-linejoin="round" opacity=".5" filter="url(#b1)"/>
+<path id="mo" d="M22 70C50 72 90 76 120 76C150 76 190 72 218 70" fill="none" stroke="#7a1f40" stroke-width="2.6" stroke-linecap="round" filter="url(#b1)" opacity=".8"/>
+</svg>
 <div class="reels"><div class="reel"><small>Олівець</small><div class="dot" id="d1"></div><b id="n1">—</b></div>
 <div class="reel"><small>Помада</small><div class="dot" id="d2"></div><b id="n2">—</b></div></div>
 <button class="heart" id="hb">🤍 В улюблені</button>
@@ -100,7 +117,11 @@ const key=c=>c.pn+'|'+c.ph+'|'+c.ln+'|'+c.lh;
 const isFav=()=>cur&&D.favs.some(f=>key(f)==key(cur));
 function updateHeart(){const h=$('#hb'),on=isFav();h.classList.toggle('show',!!cur);h.classList.toggle('on',!!on);h.textContent=on?'❤️ В улюблених':'🤍 В улюблені'}
 function renderFavs(){$('#l3').innerHTML=D.favs.length?D.favs.map((x,i)=>`<div class="item" data-fav="${x.id}" style="animation-delay:${i*40}ms"><div class="pair"><div class="dot" style="background:${x.ph}"></div><div class="dot" style="background:${x.lh}"></div></div><span>${esc(x.pn)}<br><small>${esc(x.ln)}</small></span><button data-k="favs" data-id="${x.id}">✕</button></div>`).join(''):'<div class="empty">Тут зʼявляться улюблені комбінації 💖<br>Натисни 🤍 після прокрутки</div>'}
-function showCur(){$('#d1').style.background=cur.ph;$('#n1').textContent=cur.pn;$('#d2').style.background=cur.lh;$('#n2').textContent=cur.ln;$('#lf').setAttribute('stroke',cur.ph);$('#lf').setAttribute('fill',cur.lh);updateHeart()}
+function mix(h,t,k){const f=x=>[1,3,5].map(i=>parseInt(x.slice(i,i+2),16)),a=f(h),b=f(t);return'#'+a.map((v,i)=>Math.round(v+(b[i]-v)*k).toString(16).padStart(2,'0')).join('')}
+function setLips(pc,lc){const S=(i,c)=>$('#'+i).setAttribute('stop-color',c);
+S('u1',mix(lc,'#000000',.3));S('u2',mix(lc,'#000000',.1));S('l1',mix(lc,'#ffffff',.2));S('l2',lc);S('l3',mix(lc,'#000000',.22));
+$$('.pc').forEach(p=>p.setAttribute('stroke',pc));$('#mo').setAttribute('stroke',mix(lc,'#000000',.55))}
+function showCur(){$('#d1').style.background=cur.ph;$('#n1').textContent=cur.pn;$('#d2').style.background=cur.lh;$('#n2').textContent=cur.ln;setLips(cur.ph,cur.lh);updateHeart()}
 function hearts(){const r=$('#hb').getBoundingClientRect();for(let i=0;i<8;i++){const p=document.createElement('span');p.className='hp';p.textContent=pick(['❤️','💖','💗','💕']);p.style.left=r.left+r.width/2+'px';p.style.top=r.top+'px';document.body.appendChild(p);
 p.animate([{transform:'translate(0,0) scale(.5)',opacity:1},{transform:`translate(${(Math.random()-.5)*160}px,-${80+Math.random()*100}px) scale(1.3)`,opacity:0}],{duration:1000+Math.random()*500,easing:'ease-out'}).onfinish=()=>p.remove()}}
 function render(){renderFavs();updateHeart();[['pencils','#l1'],['lipsticks','#l2']].forEach(([k,sel])=>{
@@ -134,10 +155,10 @@ $('#go').onclick=async()=>{const P=D.pencils,L=D.lipsticks;if(!P.length||!L.leng
 const g=$('#go');g.disabled=true;cur=null;updateHeart();const fp=pick(P),fl=pick(L);let t=0,delay=45;
 const step=()=>{t+=delay;const a=t>1500?fp:pick(P),b=t>2000?fl:pick(L);
 $('#d1').style.background=a.hex;$('#n1').textContent=a.name;$('#d2').style.background=b.hex;$('#n2').textContent=b.name;
-$('#lf').setAttribute('stroke',a.hex);$('#lf').setAttribute('fill',b.hex);navigator.vibrate&&t%3<1&&navigator.vibrate(5);
+setLips(a.hex,b.hex);navigator.vibrate&&t%3<1&&navigator.vibrate(5);
 delay*=1.07;if(t<2300)setTimeout(step,delay);else{const l=$('#lips');l.classList.remove('pop');void l.offsetWidth;l.classList.add('pop');confetti([fp.hex,fl.hex,'#fff','#ffd1e4']);navigator.vibrate&&navigator.vibrate([30,40,30]);cur={pn:fp.name,ph:fp.hex,ln:fl.name,lh:fl.hex};updateHeart();g.disabled=false}};step()};
 $('#hb').onclick=()=>{if(!cur)return;const k=key(cur),i=D.favs.findIndex(f=>key(f)==k);if(i>=0)D.favs.splice(i,1);else{D.favs.unshift({id:uid(),...cur});hearts()}const h=$('#hb');h.classList.remove('beat');void h.offsetWidth;h.classList.add('beat');navigator.vibrate&&navigator.vibrate(20);save()};
 document.addEventListener('click',e=>{const it=e.target.closest('.item[data-fav]');if(!it||e.target.closest('button'))return;const f=D.favs.find(x=>x.id==it.dataset.fav);if(!f)return;cur={pn:f.pn,ph:f.ph,ln:f.ln,lh:f.lh};showCur();$$('nav button')[0].click();const l=$('#lips');l.classList.remove('pop');void l.offsetWidth;l.classList.add('pop')});
-render();pull();addEventListener('online',pull);
+setLips('#d6527e','#ff5c9a');render();pull();addEventListener('online',pull);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
 </script></body></html>
