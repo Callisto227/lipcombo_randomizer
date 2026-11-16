@@ -13,7 +13,7 @@
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;margin:0}
 body{font-family:-apple-system,"SF Pro Rounded",system-ui,sans-serif;color:#fff;background:#2a0f24;overflow:hidden;
-padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+padding:env(safe-area-inset-top) 0 0}
 .bg{position:fixed;inset:0;z-index:0;overflow:hidden}
 .bg i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:fl 14s ease-in-out infinite alternate}
 .bg i:nth-child(1){width:60vw;height:60vw;background:#ff3d8b;top:-10%;left:-15%}
@@ -24,11 +24,11 @@ padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
 header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
 h1{margin:0;font-size:26px;letter-spacing:.5px;background:linear-gradient(90deg,#fff,#ffc1dc);-webkit-background-clip:text;color:transparent}
 .chip{font-size:12px;padding:6px 11px;border-radius:20px;background:rgba(255,255,255,.14);backdrop-filter:blur(10px);border:0;color:#fff}
-main{flex:1;overflow-y:auto;padding:0 18px 100px}
+main{flex:1;overflow-y:auto;padding:0 18px 24px}
 .tab{display:none;animation:in .5s cubic-bezier(.2,.9,.3,1.2)}.tab.on{display:block}
 @keyframes in{from{opacity:0;transform:translateY(24px) scale(.97)}}
 .glass{background:rgba(255,255,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.22);border-radius:28px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
-.lips{width:78%;display:block;margin:6px auto 0;filter:drop-shadow(0 12px 24px rgba(0,0,0,.35));animation:bob 3s ease-in-out infinite}
+.lips{width:68%;display:block;margin:6px auto 0;filter:drop-shadow(0 12px 24px rgba(0,0,0,.35));animation:bob 3s ease-in-out infinite}
 @keyframes bob{50%{transform:translateY(-8px) rotate(-1.5deg)}}
 .lips.pop{animation:pop .7s}
 @keyframes pop{30%{transform:scale(1.18) rotate(4deg)}60%{transform:scale(.95) rotate(-3deg)}}
@@ -51,9 +51,9 @@ input[type=color]{width:54px;padding:3px;flex:none;height:50px}
 .item .dot{margin:0;width:32px;height:32px;flex:none}
 .item span{flex:1}.item button{border:0;background:none;color:#fff;opacity:.6;font-size:20px;padding:4px 8px}
 .empty{text-align:center;opacity:.7;padding:30px 0}
-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));z-index:5;display:flex;gap:4px;padding:6px;border-radius:30px;
-background:rgba(30,10,26,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);width:min(92vw,420px)}
-nav button{flex:1;border:0;background:none;color:#fff;padding:12px 4px;border-radius:24px;font-size:14px;opacity:.65;transition:.3s}
+nav{flex:none;display:flex;gap:2px;padding:8px 6px calc(8px + env(safe-area-inset-bottom));background:rgba(30,10,26,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(255,255,255,.15)}
+nav button{flex:1;min-width:0;border:0;background:none;color:#fff;padding:7px 2px;border-radius:16px;display:flex;flex-direction:column;align-items:center;gap:3px;opacity:.6;transition:.3s}
+nav button i{font-style:normal;font-size:22px;line-height:1}nav button span{font-size:11px;font-weight:600;white-space:nowrap}
 nav button.on{background:linear-gradient(110deg,#ff3d8b,#8b3dff);opacity:1;box-shadow:0 4px 16px rgba(255,61,139,.45)}
 .sheet{position:fixed;inset:0;z-index:20;background:rgba(20,5,18,.7);backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center}
 .sheet.on{display:flex}.sheet .glass{width:100%;max-width:520px;border-radius:28px 28px 0 0;background:#3a1633;animation:in .4s;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
@@ -68,8 +68,8 @@ nav button.on{background:linear-gradient(110deg,#ff3d8b,#8b3dff);opacity:1;box-s
 <section class="tab on" id="t0"><div class="glass">
 <svg class="lips" id="lips" viewBox="0 0 240 140">
 <defs>
-<linearGradient id="gu" x1="0" y1="0" x2="0" y2="1"><stop id="u1" offset="0" stop-color="#b83a64"/><stop id="u2" offset="1" stop-color="#e0527f"/></linearGradient>
-<linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop id="l1" offset="0" stop-color="#ff7aa6"/><stop id="l2" offset=".55" stop-color="#ff5c9a"/><stop id="l3" offset="1" stop-color="#cf3f77"/></linearGradient>
+<linearGradient id="gu" x1="0" y1="0" x2="0" y2="1"><stop id="su1" offset="0" stop-color="#b83a64"/><stop id="su2" offset="1" stop-color="#e0527f"/></linearGradient>
+<linearGradient id="gl" x1="0" y1="0" x2="0" y2="1"><stop id="sl1" offset="0" stop-color="#ff7aa6"/><stop id="sl2" offset=".55" stop-color="#ff5c9a"/><stop id="sl3" offset="1" stop-color="#cf3f77"/></linearGradient>
 <filter id="b4" x="-20%" y="-30%" width="140%" height="160%"><feGaussianBlur stdDeviation="4"/></filter>
 <filter id="b1" x="-10%" y="-20%" width="120%" height="140%"><feGaussianBlur stdDeviation=".7"/></filter>
 <filter id="b3" x="-30%" y="-100%" width="160%" height="300%"><feGaussianBlur stdDeviation="3"/></filter>
@@ -91,9 +91,9 @@ nav button.on{background:linear-gradient(110deg,#ff3d8b,#8b3dff);opacity:1;box-s
 <button class="go" id="go">✨ Крутити</button></div></section>
 <section class="tab" id="t1"><div class="row"><input type="color" id="c1" value="#c0506a"><input id="i1" placeholder="Назва відтінку олівця"><button class="add" data-k="pencils">+</button></div><div id="l1"></div></section>
 <section class="tab" id="t2"><div class="row"><input type="color" id="c2" value="#e0245e"><input id="i2" placeholder="Назва помади"><button class="add" data-k="lipsticks">+</button></div><div id="l2"></div></section>
-</main>
 <section class="tab" id="t3"><div id="l3"></div></section>
-<nav><button class="on" data-t="0">🎰 Рандом</button><button data-t="1">✏️ Олівці</button><button data-t="2">💄 Помади</button><button data-t="3">❤️</button></nav>
+</main>
+<nav><button class="on" data-t="0"><i>🎰</i><span>Рандом</span></button><button data-t="1"><i>✏️</i><span>Олівці</span></button><button data-t="2"><i>💄</i><span>Помади</span></button><button data-t="3"><i>❤️</i><span>Улюблені</span></button></nav>
 </div>
 <div class="sheet" id="sh"><div class="glass">
 <h3 style="margin:0 0 6px">Синхронізація з GitHub</h3>
@@ -119,7 +119,7 @@ function updateHeart(){const h=$('#hb'),on=isFav();h.classList.toggle('show',!!c
 function renderFavs(){$('#l3').innerHTML=D.favs.length?D.favs.map((x,i)=>`<div class="item" data-fav="${x.id}" style="animation-delay:${i*40}ms"><div class="pair"><div class="dot" style="background:${x.ph}"></div><div class="dot" style="background:${x.lh}"></div></div><span>${esc(x.pn)}<br><small>${esc(x.ln)}</small></span><button data-k="favs" data-id="${x.id}">✕</button></div>`).join(''):'<div class="empty">Тут зʼявляться улюблені комбінації 💖<br>Натисни 🤍 після прокрутки</div>'}
 function mix(h,t,k){const f=x=>[1,3,5].map(i=>parseInt(x.slice(i,i+2),16)),a=f(h),b=f(t);return'#'+a.map((v,i)=>Math.round(v+(b[i]-v)*k).toString(16).padStart(2,'0')).join('')}
 function setLips(pc,lc){const S=(i,c)=>$('#'+i).setAttribute('stop-color',c);
-S('u1',mix(lc,'#000000',.3));S('u2',mix(lc,'#000000',.1));S('l1',mix(lc,'#ffffff',.2));S('l2',lc);S('l3',mix(lc,'#000000',.22));
+S('su1',mix(lc,'#000000',.3));S('su2',mix(lc,'#000000',.1));S('sl1',mix(lc,'#ffffff',.2));S('sl2',lc);S('sl3',mix(lc,'#000000',.22));
 $$('.pc').forEach(p=>p.setAttribute('stroke',pc));$('#mo').setAttribute('stroke',mix(lc,'#000000',.55))}
 function showCur(){$('#d1').style.background=cur.ph;$('#n1').textContent=cur.pn;$('#d2').style.background=cur.lh;$('#n2').textContent=cur.ln;setLips(cur.ph,cur.lh);updateHeart()}
 function hearts(){const r=$('#hb').getBoundingClientRect();for(let i=0;i<8;i++){const p=document.createElement('span');p.className='hp';p.textContent=pick(['❤️','💖','💗','💕']);p.style.left=r.left+r.width/2+'px';p.style.top=r.top+'px';document.body.appendChild(p);
@@ -140,7 +140,7 @@ try{status('⟳ Збереження…');let r=await api('PUT',{message:'update
 if(r.status==409||r.status==422){const g=await api('GET');if(g.ok){sha=(await g.json()).sha;r=await api('PUT',{message:'update',content:B(JSON.stringify(D,null,1)),sha})}}
 if(!r.ok)throw await why(r);sha=(await r.json()).content.sha;status('☁︎ Збережено');$('#er').textContent=''}catch(e){status('⚠︎ Не збережено');err(e)}
 busy=false;if(again){again=false;push()}}
-$$('nav button').forEach(b=>b.onclick=()=>{$$('nav button').forEach(x=>x.classList.toggle('on',x==b));$$('.tab').forEach((t,i)=>t.classList.toggle('on',i==b.dataset.t))});
+$$('nav button').forEach(b=>b.onclick=()=>{$('main').scrollTop=0;$$('nav button').forEach(x=>x.classList.toggle('on',x==b));$$('.tab').forEach((t,i)=>t.classList.toggle('on',i==b.dataset.t))});
 $$('.add').forEach(b=>b.onclick=()=>{const n=b.dataset.k=='pencils'?1:2,name=$('#i'+n).value.trim();if(!name)return $('#i'+n).focus();
 D[b.dataset.k].unshift({id:uid(),name,hex:$('#c'+n).value});$('#i'+n).value='';save();navigator.vibrate&&navigator.vibrate(15)});
 document.addEventListener('click',e=>{const b=e.target.closest('.item button');if(!b)return;D[b.dataset.k]=D[b.dataset.k].filter(x=>x.id!=b.dataset.id);save()});
@@ -156,7 +156,7 @@ const g=$('#go');g.disabled=true;cur=null;updateHeart();const fp=pick(P),fl=pick
 const step=()=>{t+=delay;const a=t>1500?fp:pick(P),b=t>2000?fl:pick(L);
 $('#d1').style.background=a.hex;$('#n1').textContent=a.name;$('#d2').style.background=b.hex;$('#n2').textContent=b.name;
 setLips(a.hex,b.hex);navigator.vibrate&&t%3<1&&navigator.vibrate(5);
-delay*=1.07;if(t<2300)setTimeout(step,delay);else{const l=$('#lips');l.classList.remove('pop');void l.offsetWidth;l.classList.add('pop');confetti([fp.hex,fl.hex,'#fff','#ffd1e4']);navigator.vibrate&&navigator.vibrate([30,40,30]);cur={pn:fp.name,ph:fp.hex,ln:fl.name,lh:fl.hex};updateHeart();g.disabled=false}};step()};
+delay*=1.07;if(t<2300)setTimeout(step,delay);else{const l=$('#lips');l.classList.remove('pop');void l.offsetWidth;l.classList.add('pop');confetti([fp.hex,fl.hex,'#fff','#ffd1e4']);navigator.vibrate&&navigator.vibrate([30,40,30]);cur={pn:fp.name,ph:fp.hex,ln:fl.name,lh:fl.hex};updateHeart();g.disabled=false;$('#hb').scrollIntoView({block:'nearest',behavior:'smooth'})}};step()};
 $('#hb').onclick=()=>{if(!cur)return;const k=key(cur),i=D.favs.findIndex(f=>key(f)==k);if(i>=0)D.favs.splice(i,1);else{D.favs.unshift({id:uid(),...cur});hearts()}const h=$('#hb');h.classList.remove('beat');void h.offsetWidth;h.classList.add('beat');navigator.vibrate&&navigator.vibrate(20);save()};
 document.addEventListener('click',e=>{const it=e.target.closest('.item[data-fav]');if(!it||e.target.closest('button'))return;const f=D.favs.find(x=>x.id==it.dataset.fav);if(!f)return;cur={pn:f.pn,ph:f.ph,ln:f.ln,lh:f.lh};showCur();$$('nav button')[0].click();const l=$('#lips');l.classList.remove('pop');void l.offsetWidth;l.classList.add('pop')});
 setLips('#d6527e','#ff5c9a');render();pull();addEventListener('online',pull);
