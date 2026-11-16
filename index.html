@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LipCombo</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="LipCombo">
+<meta name="theme-color" content="#2a0f24">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;margin:0}
+body{font-family:-apple-system,"SF Pro Rounded",system-ui,sans-serif;color:#fff;background:#2a0f24;overflow:hidden;
+padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.bg{position:fixed;inset:0;z-index:0;overflow:hidden}
+.bg i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;animation:fl 14s ease-in-out infinite alternate}
+.bg i:nth-child(1){width:60vw;height:60vw;background:#ff3d8b;top:-10%;left:-15%}
+.bg i:nth-child(2){width:70vw;height:70vw;background:#8b3dff;bottom:-15%;right:-20%;animation-delay:-5s}
+.bg i:nth-child(3){width:45vw;height:45vw;background:#ff8a5c;top:40%;left:30%;animation-delay:-9s}
+@keyframes fl{to{transform:translate(12vw,-8vh) scale(1.25)}}
+#app{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;max-width:520px;margin:auto}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 20px}
+h1{margin:0;font-size:26px;letter-spacing:.5px;background:linear-gradient(90deg,#fff,#ffc1dc);-webkit-background-clip:text;color:transparent}
+.chip{font-size:12px;padding:6px 11px;border-radius:20px;background:rgba(255,255,255,.14);backdrop-filter:blur(10px);border:0;color:#fff}
+main{flex:1;overflow-y:auto;padding:0 18px 100px}
+.tab{display:none;animation:in .5s cubic-bezier(.2,.9,.3,1.2)}.tab.on{display:block}
+@keyframes in{from{opacity:0;transform:translateY(24px) scale(.97)}}
+.glass{background:rgba(255,255,255,.12);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.22);border-radius:28px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.lips{width:78%;display:block;margin:6px auto 0;filter:drop-shadow(0 12px 24px rgba(0,0,0,.35));animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-1.5deg)}}
+.lips.pop{animation:pop .7s}
+@keyframes pop{30%{transform:scale(1.18) rotate(4deg)}60%{transform:scale(.95) rotate(-3deg)}}
+.reels{display:flex;gap:12px;margin-top:14px}
+.reel{flex:1;text-align:center;padding:12px 8px;border-radius:20px;background:rgba(0,0,0,.22);min-height:92px;transition:.2s}
+.reel small{opacity:.7;font-size:12px;display:block}
+.dot{width:38px;height:38px;border-radius:50%;margin:8px auto 6px;border:3px solid rgba(255,255,255,.8);transition:background .08s;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.reel b{font-size:14px;display:block;min-height:18px}
+.go{width:100%;margin-top:18px;padding:18px;border:0;border-radius:22px;font-size:19px;font-weight:700;color:#fff;
+background:linear-gradient(110deg,#ff3d8b,#ff8a5c,#ff3d8b);background-size:200%;animation:sh 3s linear infinite;box-shadow:0 10px 30px rgba(255,61,139,.5);transition:transform .15s}
+.go:active{transform:scale(.95)}
+@keyframes sh{to{background-position:200%}}
+.go[disabled]{opacity:.5;animation:none}
+.row{display:flex;gap:10px;margin-bottom:14px}
+input{font:inherit;color:#fff;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);border-radius:16px;padding:13px 14px;outline:0;width:100%}
+input::placeholder{color:rgba(255,255,255,.55)}
+input[type=color]{width:54px;padding:3px;flex:none;height:50px}
+.add{border:0;border-radius:16px;padding:0 18px;font-size:22px;color:#fff;background:#ff3d8b;flex:none}
+.item{display:flex;align-items:center;gap:12px;padding:10px 12px;margin-bottom:8px;border-radius:18px;background:rgba(255,255,255,.1);animation:in .4s both}
+.item .dot{margin:0;width:32px;height:32px;flex:none}
+.item span{flex:1}.item button{border:0;background:none;color:#fff;opacity:.6;font-size:20px;padding:4px 8px}
+.empty{text-align:center;opacity:.7;padding:30px 0}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(10px + env(safe-area-inset-bottom));z-index:5;display:flex;gap:4px;padding:6px;border-radius:30px;
+background:rgba(30,10,26,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);width:min(92vw,420px)}
+nav button{flex:1;border:0;background:none;color:#fff;padding:12px 4px;border-radius:24px;font-size:14px;opacity:.65;transition:.3s}
+nav button.on{background:linear-gradient(110deg,#ff3d8b,#8b3dff);opacity:1;box-shadow:0 4px 16px rgba(255,61,139,.45)}
+.sheet{position:fixed;inset:0;z-index:20;background:rgba(20,5,18,.7);backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center}
+.sheet.on{display:flex}.sheet .glass{width:100%;max-width:520px;border-radius:28px 28px 0 0;background:#3a1633;animation:in .4s;padding-bottom:calc(24px + env(safe-area-inset-bottom))}
+.sheet input{margin-bottom:10px}.sheet p{font-size:13px;opacity:.75;margin:0 0 12px;line-height:1.4}
+.p{position:fixed;width:10px;height:10px;border-radius:50%;pointer-events:none;z-index:30}
+</style></head><body>
+<div class="bg"><i></i><i></i><i></i></div>
+<div id="app">
+<header><h1>💋 LipCombo</h1><button class="chip" id="st">⚙︎ Синхр.</button></header>
+<main>
+<section class="tab on" id="t0"><div class="glass">
+<svg class="lips" id="lips" viewBox="0 0 200 110"><path id="lf" d="M10 55 Q40 8 78 28 Q100 14 122 28 Q160 8 190 55 Q150 104 100 104 Q50 104 10 55Z" fill="#ff5c9a" stroke="#fff" stroke-width="7" stroke-linejoin="round" style="transition:.4s"/>
+<path d="M14 55 Q100 72 186 55" fill="none" stroke="rgba(0,0,0,.25)" stroke-width="3"/><ellipse cx="70" cy="40" rx="18" ry="6" fill="rgba(255,255,255,.35)"/></svg>
+<div class="reels"><div class="reel"><small>Олівець</small><div class="dot" id="d1"></div><b id="n1">—</b></div>
+<div class="reel"><small>Помада</small><div class="dot" id="d2"></div><b id="n2">—</b></div></div>
+<button class="go" id="go">✨ Крутити</button></div></section>
+<section class="tab" id="t1"><div class="row"><input type="color" id="c1" value="#c0506a"><input id="i1" placeholder="Назва відтінку олівця"><button class="add" data-k="pencils">+</button></div><div id="l1"></div></section>
+<section class="tab" id="t2"><div class="row"><input type="color" id="c2" value="#e0245e"><input id="i2" placeholder="Назва помади"><button class="add" data-k="lipsticks">+</button></div><div id="l2"></div></section>
+</main>
+<nav><button class="on" data-t="0">🎰 Рандом</button><button data-t="1">✏️ Олівці</button><button data-t="2">💄 Помади</button></nav>
+</div>
+<div class="sheet" id="sh"><div class="glass">
+<h3 style="margin:0 0 6px">Синхронізація з GitHub</h3>
+<p>Закритий репозиторій для даних (наприклад <i>user/lipcombo-data</i>) і fine-grained токен з доступом лише до нього: Contents → Read and write. Токен зберігається тільки на цьому телефоні.</p>
+<input id="rp" placeholder="user/lipcombo-data" autocapitalize="off"><input id="tk" type="password" placeholder="github_pat_…" autocapitalize="off">
+<div class="row" style="margin:0"><button class="go" style="margin:0;font-size:16px;padding:14px" id="sv">Зберегти</button></div></div></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let D=JSON.parse(localStorage.lc_data||'{"pencils":[],"lipsticks":[]}'),cfg=JSON.parse(localStorage.lc_cfg||'{}'),sha=null,busy=false,again=false;
+const uid=()=>Math.random().toString(36).slice(2,9),B=s=>btoa(unescape(encodeURIComponent(s))),U=s=>decodeURIComponent(escape(atob(s.replace(/\n/g,''))));
+const esc=s=>s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function status(t){$('#st').textContent=t}
+function render(){[['pencils','#l1'],['lipsticks','#l2']].forEach(([k,sel])=>{
+$(sel).innerHTML=D[k].length?D[k].map((x,i)=>`<div class="item" style="animation-delay:${i*40}ms"><div class="dot" style="background:${x.hex}"></div><span>${esc(x.name)}</span><button data-k="${k}" data-id="${x.id}">✕</button></div>`).join(''):'<div class="empty">Поки порожньо 🌸<br>Додай перший відтінок</div>'})}
+function save(){localStorage.lc_data=JSON.stringify(D);render();push()}
+const api=(m,b)=>fetch(`https://api.github.com/repos/${cfg.repo}/contents/data.json`,{method:m,headers:{Authorization:'Bearer '+cfg.token,Accept:'application/vnd.github+json'},body:b&&JSON.stringify(b)});
+async function pull(){if(!cfg.repo||!cfg.token)return status('⚙︎ Налаштувати');
+try{status('⟳ Синхр…');const r=await api('GET');
+if(r.status==404){sha=null;status('☁︎ Готово');return push()}
+if(!r.ok)throw 0;const j=await r.json();sha=j.sha;const remote=JSON.parse(U(j.content));
+const m=(a,b)=>{const s=new Map();[...a,...b].forEach(x=>s.set(x.id,x));return[...s.values()]};
+D={pencils:m(remote.pencils||[],D.pencils),lipsticks:m(remote.lipsticks||[],D.lipsticks)};
+localStorage.lc_data=JSON.stringify(D);render();status('☁︎ Синхронізовано')}catch(e){status('⚠︎ Офлайн')}}
+async function push(){if(!cfg.repo||!cfg.token)return;if(busy){again=true;return}busy=true;
+try{status('⟳ Збереження…');let r=await api('PUT',{message:'update',content:B(JSON.stringify(D,null,1)),...(sha&&{sha})});
+if(r.status==409||r.status==422){const g=await api('GET');if(g.ok){sha=(await g.json()).sha;r=await api('PUT',{message:'update',content:B(JSON.stringify(D,null,1)),sha})}}
+if(!r.ok)throw 0;sha=(await r.json()).content.sha;status('☁︎ Збережено')}catch(e){status('⚠︎ Не збережено')}
+busy=false;if(again){again=false;push()}}
+$$('nav button').forEach(b=>b.onclick=()=>{$$('nav button').forEach(x=>x.classList.toggle('on',x==b));$$('.tab').forEach((t,i)=>t.classList.toggle('on',i==b.dataset.t))});
+$$('.add').forEach(b=>b.onclick=()=>{const n=b.dataset.k=='pencils'?1:2,name=$('#i'+n).value.trim();if(!name)return $('#i'+n).focus();
+D[b.dataset.k].unshift({id:uid(),name,hex:$('#c'+n).value});$('#i'+n).value='';save();navigator.vibrate&&navigator.vibrate(15)});
+document.addEventListener('click',e=>{const b=e.target.closest('.item button');if(!b)return;D[b.dataset.k]=D[b.dataset.k].filter(x=>x.id!=b.dataset.id);save()});
+$('#st').onclick=()=>{$('#rp').value=cfg.repo||'';$('#tk').value=cfg.token||'';$('#sh').classList.add('on')};
+$('#sh').onclick=e=>{if(e.target.id=='sh')e.target.classList.remove('on')};
+$('#sv').onclick=()=>{cfg={repo:$('#rp').value.trim(),token:$('#tk').value.trim()};localStorage.lc_cfg=JSON.stringify(cfg);$('#sh').classList.remove('on');pull()};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function confetti(c){const r=$('#lips').getBoundingClientRect(),x0=r.left+r.width/2,y0=r.top+r.height/2;
+for(let i=0;i<36;i++){const p=document.createElement('i');p.className='p';p.style.cssText=`left:${x0}px;top:${y0}px;background:${pick(c)}`;document.body.appendChild(p);
+const a=Math.random()*6.28,d=80+Math.random()*130;p.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d+60}px) scale(.2)`,opacity:0}],{duration:900+Math.random()*500,easing:'cubic-bezier(.2,.8,.3,1)'}).onfinish=()=>p.remove()}}
+$('#go').onclick=async()=>{const P=D.pencils,L=D.lipsticks;if(!P.length||!L.length){$('#n1').textContent=P.length?'':'додай олівці';$('#n2').textContent=L.length?'':'додай помади';return}
+const g=$('#go');g.disabled=true;const fp=pick(P),fl=pick(L);let t=0,delay=45;
+const step=()=>{t+=delay;const a=t>1500?fp:pick(P),b=t>2000?fl:pick(L);
+$('#d1').style.background=a.hex;$('#n1').textContent=a.name;$('#d2').style.background=b.hex;$('#n2').textContent=b.name;
+$('#lf').setAttribute('stroke',a.hex);$('#lf').setAttribute('fill',b.hex);navigator.vibrate&&t%3<1&&navigator.vibrate(5);
+delay*=1.07;if(t<2300)setTimeout(step,delay);else{const l=$('#lips');l.classList.remove('pop');void l.offsetWidth;l.classList.add('pop');confetti([fp.hex,fl.hex,'#fff','#ffd1e4']);navigator.vibrate&&navigator.vibrate([30,40,30]);g.disabled=false}};step()};
+render();pull();addEventListener('online',pull);
+if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+</script></body></html>
