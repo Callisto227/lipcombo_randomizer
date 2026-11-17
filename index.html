@@ -133,7 +133,7 @@ try{status('⟳ Синхр…');const r=await api('GET');
 if(r.status==404){const rr=await api('GET2');if(rr.ok){sha=null;await push();return true}throw await why(rr)}
 if(!r.ok)throw await why(r);const j=await r.json();sha=j.sha;const remote=JSON.parse(U(j.content));
 const m=(a,b)=>{const s=new Map();[...a,...b].forEach(x=>s.set(x.id,x));return[...s.values()]};
-D={pencils:m(remote.pencils||[],D.pencils),lipsticks:m(remote.lipsticks||[],D.lipsticks),favs:m(remote.favs||[],D.favs||[]),night:[...new Set([...(remote.night||[]),...(D.night||[])])]};
+D={pencils:m(remote.pencils||[],D.pencils),lipsticks:m(remote.lipsticks||[],D.lipsticks),favs:m(remote.favs||[],D.favs||[])};
 localStorage.lc_data=JSON.stringify(D);render();status('☁︎ Синхронізовано');$('#er').textContent='';return true}catch(e){status('⚠︎ Помилка');err(e)}}
 async function push(){if(!cfg.repo||!cfg.token)return;if(busy){again=true;return}busy=true;
 try{status('⟳ Збереження…');let r=await api('PUT',{message:'update',content:B(JSON.stringify(D,null,1)),...(sha&&{sha})});
@@ -161,5 +161,4 @@ $('#hb').onclick=()=>{if(!cur)return;const k=key(cur),i=D.favs.findIndex(f=>key(
 document.addEventListener('click',e=>{const it=e.target.closest('.item[data-fav]');if(!it||e.target.closest('button'))return;const f=D.favs.find(x=>x.id==it.dataset.fav);if(!f)return;cur={pn:f.pn,ph:f.ph,ln:f.ln,lh:f.lh};showCur();$$('nav button')[0].click();const l=$('#lips');l.classList.remove('pop');void l.offsetWidth;l.classList.add('pop')});
 setLips('#d6527e','#ff5c9a');render();pull();addEventListener('online',pull);
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
-</script>
-<script src="night.js"></script></body></html>
+</script></body></html>
